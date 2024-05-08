@@ -1,0 +1,5 @@
+pydantic[email]
+sqlalchemy
+uvicorn
+fastapi
+python-dotenv
