@@ -1,16 +1,15 @@
 from fastapi import Depends
-from typing import Annotated
-from sqlalchemy.orm import Session
-from database import SessionLocal
+import typing
+from sqlalchemy.ext.asyncio import AsyncSession
+from repository.database import db
 
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    except Exception as Exc:
-        print(Exc)
-        db.rollback()
-    finally:
-        db.close()
+async def get_session() -> typing.AsyncGenerator[AsyncSession, None]:
+    # try:
+    yield db.session
+    # except Exception as exc:
+    #     print(exc)
+    #     await db.session.rollback()
+    # finally:
+    #     await db.session.close()
 
-db_dependency = Annotated[Session, Depends(get_db)]
+db_dependency = typing.Annotated[AsyncSession, Depends(get_session)]

@@ -1,5 +1,14 @@
+pydantic==2.7.0
+pydantic-settings==2.2.1
 pydantic[email]
 sqlalchemy
 uvicorn
 fastapi
-python-dotenv
+decouple==0.0.7
+Mako==1.3.3 
+MarkupSafe==2.1.5 
+alembic==1.13.1
+werkzeug==3.0.3
+jose==1.0.0
+async-timeout==4.0.3 
+asyncpg==0.29.0
