@@ -7,9 +7,13 @@ from typing import List
 from models.schemas.form import Form
 
 class UserCreate(BaseSchemaModel):
-    name: str = Field(min_length=2, max_length=256)
-    email: EmailStr = Field(min_length=5, max_length=256)
-    password: str = Field(min_length=5, max_length=256)
+    name: str 
+    email: EmailStr
+    password: str
+    
+class UserLogin(BaseSchemaModel):
+    email: EmailStr
+    password: str
     
 class UserRead(BaseSchemaModel):
     id: int

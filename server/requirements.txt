@@ -12,3 +12,5 @@ werkzeug==3.0.3
 jose==1.0.0
 async-timeout==4.0.3 
 asyncpg==0.29.0
+python-jose
+bcrypt==4.1.3

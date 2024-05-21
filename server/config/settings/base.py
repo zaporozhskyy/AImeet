@@ -11,6 +11,10 @@ class BackendBaseSettings(BaseSettings):
     POSTGRES_HOST: str = model_config.get("POSTGRES_HOST")
     POSTGRES_URL: str = model_config.get("POSTGRES_URL")
     
+    
+    JWT_SECRET_KEY: str = model_config.get("JWT_SECRET_KEY")
+    JWT_ALGORITHM: str = model_config.get("JWT_ALGORITHM")
+
     ALLOWED_ORIGINS: list[str] = [
         "http://localhost:3000",
         "http://127.0.0.1:3000"

@@ -1,19 +1,18 @@
 from fastapi import FastAPI
 import typing
 from models.tables.tables import Form, User
-from api.dependencies.session import db_dependency
-from sqlalchemy.ext.asyncio import AsyncConnection, AsyncSession
-async def init_db_tables(connection: AsyncConnection) -> None:
-    await connection.run_sync(User.metadata.drop_all)
-    await connection.run_sync(Form.metadata.drop_all)
-    await connection.run_sync(User.metadata.create_all)
-    await connection.run_sync(Form.metadata.create_all)
+from repository.database import db
+from sqlalchemy.ext.asyncio import AsyncConnection, AsyncSession, AsyncEngine
+
+async def init_db_tables(conn: AsyncEngine) -> None:
+    await conn.run_sync(User.metadata.drop_all)
+    await conn.run_sync(Form.metadata.drop_all)
+    await conn.run_sync(User.metadata.create_all)
+    await conn.run_sync(Form.metadata.create_all)
     
-# async def init_db_connection(backend_app: FastAPI) -> None:
-#     backend_app.state.db = database
+async def init_db_connection(backend_app: FastAPI) -> None:
+    async with db.engine.begin() as connection:
+        await init_db_tables(connection)
     
-#     async with backend_app.state.db.engine.begin() as connection:
-#         await init_db_tables(connection=connection)
-          
-# async def dispose_db_connection(backend_app: FastAPI) -> None:
-#     await backend_app.state.db.engine.dispose()
+async def dispose_db_connection() -> None:
+    await db.engine.dispose()

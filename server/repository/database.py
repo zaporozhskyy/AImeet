@@ -15,7 +15,7 @@ class AsyncDatabase:
             url=f"{settings.POSTGRES_SCHEMA}://{settings.POSTGRES_USERNAME}:{settings.POSTGRES_PASSWORD}@{settings.POSTGRES_HOST}:{settings.POSTGRES_PORT}/{settings.POSTGRES_DB}"
         )
         self.engine: AsyncEngine = create_async_engine(settings.POSTGRES_URL)
-        self.session: AsyncSession = async_sessionmaker(autocommit=False, autoflush=False, bind=self.engine)
+        self.session: AsyncSession = AsyncSession(autocommit=False, autoflush=False, bind=self.engine)
 
 
 db: AsyncDatabase = AsyncDatabase()
