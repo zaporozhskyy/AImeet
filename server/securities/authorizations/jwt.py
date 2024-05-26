@@ -36,7 +36,7 @@ class JWTGenerator:
             expires_delta=datetime.timedelta(minutes=60),
         )
 
-    def retrieve_details_from_token(self, token: str, secret_key: str) -> list[str]:
+    def retrieve_details_from_token(self, token: str, secret_key: str) -> str:
         try:
             payload = jose_jwt.decode(token=token, key=secret_key, algorithms=[settings.JWT_ALGORITHM])
             jwt_account = JWTAccount(email=payload["email"])
@@ -47,7 +47,7 @@ class JWTGenerator:
         except pydantic.ValidationError as validation_error:
             raise ValueError("Invalid payload in token") from validation_error
 
-        return [jwt_account.name, jwt_account.email]
+        return jwt_account.email
 
 
 def get_jwt_generator() -> JWTGenerator:

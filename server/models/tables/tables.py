@@ -13,7 +13,6 @@ class User(BaseModel):
     name: SQLAlchemyMapped[str] = mapped_column(String(256), unique=True, nullable=False)
     email: SQLAlchemyMapped[str] = mapped_column(String(256), unique=True, nullable=False, index=True)
     _hashed_password: SQLAlchemyMapped[bytes] = mapped_column(LargeBinary, nullable=False)
-    token: SQLAlchemyMapped[str] = mapped_column(String, nullable=True)
     is_logged_in: SQLAlchemyMapped[bool] = mapped_column(Boolean, nullable=False, default=False)
     created_at: SQLAlchemyMapped[datetime.datetime] = mapped_column(DateTime(timezone=True), nullable=False, server_default=functions.now())
     updated_at: SQLAlchemyMapped[datetime.datetime] = mapped_column(DateTime(timezone=True), nullable=True, server_onupdate=FetchedValue(for_update=True))

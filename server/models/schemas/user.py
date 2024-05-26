@@ -24,13 +24,23 @@ class UserRead(BaseSchemaModel):
 class UserUpdate(BaseSchemaModel):
     name: str | None
     email: EmailStr | None
-    password: str | None
+    
+class UserUpdated(BaseSchemaModel):
+    token: str
+    name: str
+    email: str
+    
+class UserPasswordUpdate(BaseSchemaModel):
+    password: str
 
+class UserPasswordUpdated(BaseSchemaModel):
+    token: str
+    
 class UserLogged(BaseSchemaModel):
     token: str
     name: str 
     email: EmailStr
-    is_logged_in: bool
+    is_logged_in: bool 
     created_at: datetime
     updated_at: datetime | None 
     

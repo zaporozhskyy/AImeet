@@ -1,8 +1,6 @@
 import fastapi
 from fastapi import Depends, HTTPException, status
 from api.dependencies.session import db_dependency
-from sqlalchemy.ext.asyncio import AsyncSession
-from models.tables.tables import User
 from models.schemas.user import UserCreate, UserRead, UserResponse, UserLogged, UserLogin
 from repository.crud.account import AccountCRUDRepository as crud
 from securities.authorizations.jwt import jwt_generator
@@ -19,7 +17,6 @@ async def create_user(user: UserCreate, session: db_dependency):
     if db_user:
         raise HTTPException(status_code=400, detail=f"Name already exists!")
     
-    # new_user = await crud.create_user(user=user, session=session)
     return await crud.create_user(user=user, session=session)
 
 
@@ -30,13 +27,11 @@ async def login_user(user_login: UserLogin, session: db_dependency):
         raise HTTPException(status_code=400, detail=f"Bad sign in request!")
     
     access_token = jwt_generator.generate_access_token(user=db_user)
-
-    db_user = await crud.set_user_token(user=user_login, token=access_token, session=session)
     
     return UserResponse(
         id=db_user.id,
         account=UserLogged(
-            token=db_user.token,
+            token=access_token,
             name=db_user.name,
             email=db_user.email,
             is_logged_in=db_user.is_logged_in,
