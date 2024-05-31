@@ -16,6 +16,7 @@ class BackendBaseSettings(BaseSettings):
     JWT_ALGORITHM: str = model_config.get("JWT_ALGORITHM")
 
     ALLOWED_ORIGINS: list[str] = [
+        "http://localhost:8080",
         "http://localhost:3000",
         "http://127.0.0.1:3000"
     ]

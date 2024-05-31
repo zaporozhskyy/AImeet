@@ -4,19 +4,20 @@ from api.dependencies.session import db_dependency
 from models.schemas.user import UserCreate, UserRead, UserResponse, UserLogged, UserLogin
 from repository.crud.account import AccountCRUDRepository as crud
 from securities.authorizations.jwt import jwt_generator
-
+from fastapi.encoders import jsonable_encoder
 router = fastapi.APIRouter(prefix="/auth", tags=["authentification"])
 
 
 @router.post("/sign-up", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 async def create_user(user: UserCreate, session: db_dependency):
+    data = jsonable_encoder(user)
+    print(data)
     db_user = await crud.get_user_by_email(email=user.email, session=session)
     if db_user:
         raise HTTPException(status_code=400, detail=f"Email already exists!")
     db_user = await crud.get_user_by_name(name=user.name, session=session)
     if db_user:
         raise HTTPException(status_code=400, detail=f"Name already exists!")
-    
     return await crud.create_user(user=user, session=session)
 
 
