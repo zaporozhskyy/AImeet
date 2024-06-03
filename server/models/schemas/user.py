@@ -48,4 +48,3 @@ class UserResponse(BaseSchemaModel):
     id: int
     account: UserLogged
     
-    

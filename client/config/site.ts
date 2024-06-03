@@ -11,11 +11,7 @@ export const siteConfig = {
     {
       label: "Login",
       href: "/login",
-    },
-    {
-      label: "Register",
-      href: "/register",
-    },
+    }
   ],
   links: {
     github: "https://github.com/nextui-org/nextui",

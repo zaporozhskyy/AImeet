@@ -1,13 +1,19 @@
 "use client";
+
 import { EyeFilledIcon, EyeSlashFilledIcon } from "../components/icons";
 import toast from "react-hot-toast";
 import { Button, Input } from "@nextui-org/react";
 import { useState } from "react";
-import useSession from "../../../lib/use-session";
-import Router from "next/router";
+import {
+  useEffect
+} from 'react';
+import {
+  useRouter
+} from 'next/router';
 import axios from "axios";
 import DefaultLayout from "../layout";
 import { title } from "../components/primitives";
+import urlPush from "../tools/pushurl";
 
 const Register = () => {
 
@@ -73,11 +79,11 @@ const Register = () => {
     }), {headers: {'Content-Type' : 'application/json' }})
     
 
-    // if (response.status !== 201) {
-    //   toast.error("Something gone wrong!");
-
-    //   return;
-    // }
+    if (response.status === 422) {
+      toast.error("Something gone wrong!");
+    
+      return;
+    }
 
     // const loginResponse = await login({ email: email, password: password });
 
@@ -87,7 +93,7 @@ const Register = () => {
     // } else {
     //   toast.error("Failed to register");
     // }
-    Router.push("/");
+    urlPush('/');
   };
 
   const RegisterButton = () => (
