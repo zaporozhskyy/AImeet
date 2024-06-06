@@ -21,7 +21,9 @@ export default function RootLayout({
     <head>
     <body className="min-h-screen bg-background font-sans antialiased">
     <div className="relative flex flex-col h-screen">
+      <div className="border-b-1">
       <Navbar />
+      </div>
       <main className="container mx-auto max-w-7xl px-6 flex-grow">
         <Providers>
         {children}

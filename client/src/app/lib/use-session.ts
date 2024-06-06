@@ -2,6 +2,7 @@ import { User, dataFocusVisibleClasses } from "@nextui-org/react";
 import { SessionData, defaultSession } from "./lib";
 import axios from "axios";
 import { sessionmaker } from "./lib";
+import { Blob } from "buffer";
 
 export interface UserData {
   email: string;
@@ -50,3 +51,14 @@ export async function returnUser({ token }: { token: string }) {
   }
   
 }
+
+export async function sendAudioFile(file: File) {
+  const formdata = new FormData();
+    formdata.append(
+      "file",
+      file
+    )
+
+  const response = await axios.post("http://localhost:8000/prod/returntext", 
+      formdata, {headers: {'Content-Type' : 'video/webm'}})
+};

@@ -20,7 +20,7 @@ export function Form() {
   }
 
   return (
-    <div className="mt-6">
+    <div className="mt-16">
       <LoginForm />
     </div>
   );
@@ -81,7 +81,7 @@ function LoginForm() {
 
 export default function LoginFunction() {
   return (
-      <section className="flex flex-col items-center justify-center p-8">
+      <section className="flex mr-10 flex-col items-center justify-center p-8">
         <h1 className={title()}>Login</h1>
         <Form />
       </section>

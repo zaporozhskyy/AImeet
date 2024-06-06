@@ -52,11 +52,13 @@ const Register = () => {
   const nameInput = (
     <Input
       label="Name"
-      variant="bordered"
+      labelPlacement="inside"
+      variant="faded"
       value={name}
       onValueChange={setName}
       isRequired
       className="max-w-xs"
+      
     />
   );
 
@@ -84,14 +86,6 @@ const Register = () => {
     
       return;
     }
-
-    // const loginResponse = await login({ email: email, password: password });
-
-    // if (loginResponse.access_token) {
-    //   Router.push("/");
-    //   toast.success("Signed up!");
-    // } else {
-    //   toast.error("Failed to register");
     // }
     urlPush('/');
   };
@@ -99,7 +93,7 @@ const Register = () => {
   const RegisterButton = () => (
     <Button
       radius="full"
-      className="bg-gradient-to-tr from-pink-500 to-yellow-500 text-white shadow-lg"
+      className="bg-slate-400 shadow-lg p-1 m-2"
       isDisabled={!name || !email || !password}
       onClick={createUser}
     >
@@ -108,7 +102,7 @@ const Register = () => {
   );
 
   return (
-    <div className="mt-6 flex flex-col items-center justify-center">
+    <div className="mr-3 mt-16 flex flex-col items-center justify-center border-3 border-t-0 border-black">
       {nameInput}
       {emailInput}
       {passwordInput}
@@ -119,9 +113,9 @@ const Register = () => {
 
 export default function RegisterPage() {
   return (
-      <div>
+    <section className="mr-10 flex flex-col items-center justify-center p-8">
         <h1 className={title()}>Sign up</h1>
         <Register />
-      </div>
+      </section>
   );
 }

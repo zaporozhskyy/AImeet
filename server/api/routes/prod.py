@@ -7,6 +7,12 @@ import json
 from models.schemas.user import UserCreate, UserRead, UserResponse, UserLogged, UserLogin
 from repository.crud.account import AccountCRUDRepository as crud
 from securities.authorizations.jwt import jwt_generator
+from models.schemas.form import VoiceText, PydanticFile
+from fastapi import FastAPI, File, UploadFile, Path
+from typing import Annotated
+import os
+from moviepy.editor import *
+import subprocess
 
 
 router = fastapi.APIRouter(prefix="/prod", tags=["production"])
@@ -29,3 +35,16 @@ async def read_users(session: db_dependency):
         db_user_list.append(account)
 
     return db_user_list
+
+@router.post("/returntext", status_code=status.HTTP_200_OK)
+async def read_users(file: bytes = File()):
+   
+#    mp3_file = "output.mp3"
+#    print(file.decode(encoding='vp8'))
+#    print(file.file.name)
+#    print(os.path.normpath(file.file))
+#    print(os.path.normpath(file))
+   
+   subprocess.call(['ffmpeg', '-i', bytes.hex(file), r"api\routes\mp3_file.mp3"])
+   
+   return {'return' : 'ok'}
